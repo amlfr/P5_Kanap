@@ -9,7 +9,7 @@ const parentElt = document.getElementById("items");
 /** The function fetches the products from the API then uses the data to create
  * html elements on the page
  */
-async function fillProducts() {
+const fillProducts = async () => {
 
   /*Fetching the json products*/
   let response = await fetch(fetchUrl);
@@ -32,6 +32,8 @@ async function fillProducts() {
 
     const newImage = document.createElement('img');
     newArticle.appendChild(newImage);
+    /* const imgUrl = ".../product01.jpg"      */                                                          /* "../../" + product.imageUrl.match(/k.........../); */
+    /* console.log(imgUrl); */
     newImage.setAttribute("src", product.imageUrl);
     newImage.setAttribute("alt", product.altTxt);
 

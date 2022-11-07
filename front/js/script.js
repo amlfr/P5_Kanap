@@ -32,9 +32,9 @@ const fillProducts = async () => {
 
     const newImage = document.createElement('img');
     newArticle.appendChild(newImage);
-    /* const imgUrl = ".../product01.jpg"      */                                                          /* "../../" + product.imageUrl.match(/k.........../); */
-    /* console.log(imgUrl); */
-    newImage.setAttribute("src", product.imageUrl);
+    const imgUrl = "../../back/" + product.imageUrl.match(/i................../);
+    console.log(imgUrl); 
+    newImage.setAttribute("src", imgUrl);   /*product.imageUrl*/
     newImage.setAttribute("alt", product.altTxt);
 
     const newHeading = document.createElement('h3');

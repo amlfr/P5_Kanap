@@ -1,74 +1,38 @@
 /*Declaring variables*/
 const fetchUrl = "http://localhost:3000/api/products";
-let productsArray = [];
 const parentElt = document.getElementById("items");
- 
 
 
-
-/** The function fetches the products from the API then uses the data to create
- * html elements on the page
+/** The function fetches the products from the API
  */
-const fillProducts = async () => {
-
-  /*Fetching the json products*/
+const fetchProducts = async () => {
   let response = await fetch(fetchUrl);
   if (response.ok) { 
     products = await response.json();
-  } else {
-    /* alert("HTTP-Error: " + response.status);    TO DELETE*/
-  }
-
-  /*Using the products gotten to populate the html page*/
-  for (let product of products) {
-
-    const newAnchor = document.createElement('a');
-    parentElt.appendChild(newAnchor);
-    const hrefId = "./product.html?id=" + product._id;
-    newAnchor.setAttribute("href", hrefId);
-
-    const newArticle = document.createElement('article');
-    newAnchor.appendChild(newArticle);
-
-    const newImage = document.createElement('img');
-    newArticle.appendChild(newImage);
-    const imgUrl = "../../back/" + product.imageUrl.match(/i................../);
-    console.log(imgUrl); 
-    newImage.setAttribute("src", imgUrl);   /*product.imageUrl*/
-    newImage.setAttribute("alt", product.altTxt);
-
-    const newHeading = document.createElement('h3');
-    newArticle.appendChild(newHeading);
-    newHeading.setAttribute("class", "productName");
-    newHeading.innerHTML = product.name;
-
-    const newText = document.createElement('p');
-    newArticle.appendChild(newText);
-    newText.setAttribute("class", "productDescription");
-    newText.textContent = product.description; 
-
-
-
+    return products
+  } else {  
+    alert("HTTP-Error: " + response.status);
   }
 };
 
-fillProducts();
+let allProducts = fetchProducts();
+
+/**Function that generates the html elements from
+ * the information we got back
+ */
 
 
-/* function fetchJson() {
-
-fetch(fetchUrl)
-.then(function(res) {
-  if (res.ok) {
-    return res.json();
+const fillPage = async () => {
+  const arrayProducts = await allProducts;
+  for (let product of arrayProducts) {
+    parentElt.insertAdjacentHTML("afterbegin", `<a href="./product.html?id=${product._id}">`);
+    const newAnchor = document.querySelector(`a[href="./product.html?id=${product._id}"]`);
+    newAnchor.insertAdjacentHTML("afterbegin", `<article>`)
+    const newArticle = document.querySelector(`a[href="./product.html?id=${product._id}"] article`);
+    newArticle.insertAdjacentHTML("afterbegin", `<img src="${product.imageUrl}" alt="${product.altTxt}">`);
+    newArticle.insertAdjacentHTML("beforeend", `<h3 class="productName">${product.name}</h3>`);
+    newArticle.insertAdjacentHTML("beforeend", `<p class="productDescription">${product.description}</p>`);
   }
-})
-.then(function(products) {
-  console.log(products);
-})
-.catch(function(err) {
-  alert("HTTP-Error: " + response.status);
-});
-}
+};
 
-fetchJson(); */
+fillPage();

@@ -3,7 +3,7 @@ const fetchUrl = "http://localhost:3000/api/products";
 const parentElt = document.getElementById("items");
 
 
-/** The function fetches the products from the API
+/** Function that fetches the products from the API
  */
 const fetchProducts = async () => {
   let response = await fetch(fetchUrl);
@@ -17,7 +17,7 @@ const fetchProducts = async () => {
 
 let allProducts = fetchProducts();
 
-/**Function that generates the html elements from
+/**Function that generates the html elements with
  * the information we got back
  */
 

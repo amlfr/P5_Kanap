@@ -12,7 +12,7 @@ const fetchProducts = async () => {
     return products
   } else {  
     alert("HTTP-Error: " + response.status);
-  }
+  };
 };
 
 let allProducts = fetchProducts();
@@ -32,7 +32,7 @@ const fillPage = async () => {
     newArticle.insertAdjacentHTML("afterbegin", `<img src="${product.imageUrl}" alt="${product.altTxt}">`);
     newArticle.insertAdjacentHTML("beforeend", `<h3 class="productName">${product.name}</h3>`);
     newArticle.insertAdjacentHTML("beforeend", `<p class="productDescription">${product.description}</p>`);
-  }
+  };
 };
 
 fillPage();

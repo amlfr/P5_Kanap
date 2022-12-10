@@ -27,7 +27,7 @@ const fetchProduct = async () => {
   return product;
   } else {
     alert("HTTP-Error: " + response.status);
-  }
+  };
 };
 
 const pageProduct = fetchProduct();
@@ -45,7 +45,7 @@ const fillPage = async () => {
   descriptionElt.innerHTML = infoProduct.description;
   for (let color of infoProduct.colors) {
     colorDropDown.insertAdjacentHTML("beforeend", `<option value="${color}">${color}</option>`);
-  }
+  };
 };
 
 fillPage();
@@ -72,7 +72,7 @@ cartBtn.addEventListener("click", () => {
       } else {
         currentProduct[2] = JSON.stringify(parseInt(currentProduct[2]) + parseInt(quantityElt.value));
         localStorage.setItem("cart", JSON.stringify(currentCart));
-      }
-    }
+      };
+    };
   };
 });

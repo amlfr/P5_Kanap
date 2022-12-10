@@ -147,7 +147,7 @@ const createDeleteListeners = () => {
         localStorage.removeItem("cart");
     } else {
         localStorage.setItem("cart", JSON.stringify(items));
-    }
+    };
     nodeToDelete.remove();
     totalSum();
         });
@@ -162,7 +162,7 @@ const firstNameValidate = () => {
         return true
     } else {
         firstNameError.innerHTML = "Erreur sur le champ du prénom. Veuillez n'utiliser que des lettres ainsi que -.";
-    }
+    };
 };
 
 /*Function that validates the name input against the general regex which accepts any letters*/
@@ -173,7 +173,7 @@ const lastNameValidate = () => {
         return true
     } else {
         lastNameError.innerHTML = "Erreur sur le champ du nom de famille. Veuillez n'utiliser que des lettres ainsi que -.";
-    }
+    };
 };
 
 /*Function that validates the name input against the adress regex which accepts any letters and numbers*/
@@ -184,7 +184,7 @@ const adressValidate = () => {
         return true
     } else {
         adressError.innerHTML = "Erreur sur le champ de l'adresse. Veuillez n'utiliser que des lettres, des chiffres, des espaces ainsi que -.";
-    }
+    };
 };
 
 
@@ -196,7 +196,7 @@ const cityValidate = () => {
         return true
     } else {
         cityError.innerHTML = "Erreur sur le champ de la ville. Veuillez n'utiliser que des lettres ainsi que -.";
-    }
+    };
 };
 
 
@@ -208,7 +208,7 @@ const mailValidate = () => {
         return true
     } else {
         mailError.innerHTML = "Erreur sur le champ de l'adresse email. Veuillez renseigner une adresse au format valide. Exemple: Jean.Dupont@adresse.com";
-    }
+    };
 };
 
 /** Creates a submit function that checks every input then

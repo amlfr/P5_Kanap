@@ -2,7 +2,6 @@
 /*Variables to fetch the products and populate the page*/
 
 const items = JSON.parse(localStorage.getItem("cart"));
-console.log(items);
 const parentElt = document.getElementById("cart__items");
 const fetchUrl = "http://localhost:3000/api/products";
 
@@ -118,7 +117,7 @@ const totalSum = async () => {
 const createChangeListeners = () => {
     const quantityInputs = document.querySelectorAll(".itemQuantity");
     for(let quantityInput of quantityInputs)  {
-        quantityInput.addEventListener("click", () => {
+        quantityInput.addEventListener("input", () => {
             const nodeToChange = quantityInput.closest("article");
             const idToChange = nodeToChange.dataset.id;
             const colorToChange = nodeToChange.dataset.color;
@@ -211,37 +210,42 @@ const mailValidate = () => {
     };
 };
 
-/** Creates a submit function that checks every input then
- *  constructs a POST request before getting back an order ID 
- *  and redirecting the client to the confirmation page  
+/** Creates a submit function that checks if a cart exist and prompt the user if 
+ * it doesnt.Then it checks every input against it's regex before contrusting the 
+ * POST request. Once it got back the orderId it redicrects the user to the 
+ * confirmation page
  */
 
 orderForm.addEventListener("submit", async (event) => {
+    itemsCurrent = JSON.parse(localStorage.getItem("cart"));
     event.preventDefault();
-    if (firstNameValidate() && lastNameValidate() && adressValidate() && cityValidate() && mailValidate()) {
-        const contactObject = {
-            firstName: firstNameInput.value,
-            lastName: lastNameInput.value,
-            address: adressInput.value,
-            city: cityInput.value,
-            email: mailInput.value
-        };
-        const arrayProduct = [];
-        items.forEach((currentProduct) => {
-            arrayProduct.push(currentProduct[0]);
-        });
-        const requestBody = {
-            contact: contactObject,
-            products: arrayProduct
-        };
-        let response = await fetch('http://localhost:3000/api/products/order', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-            },
-            body: JSON.stringify(requestBody)
-          });
-        let result = await response.json();
-        window.location.href = `./confirmation.html?order-id=${result.orderId}`;
+    if (itemsCurrent != null) {
+        if (firstNameValidate() && lastNameValidate() && adressValidate() && cityValidate() && mailValidate()) {
+            const contactObject = {
+                firstName: firstNameInput.value,
+                lastName: lastNameInput.value,
+                address: adressInput.value,
+                city: cityInput.value,
+                email: mailInput.value
+            };
+            const arrayProduct = [];
+            itemsCurrent.forEach((currentProduct) => {
+                arrayProduct.push(currentProduct[0]);
+            });
+            const requestBody = {
+                contact: contactObject,
+                products: arrayProduct
+            };
+            let response = await fetch('http://localhost:3000/api/products/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                body: JSON.stringify(requestBody)
+              });
+            let result = await response.json();
+            window.location.href = `./confirmation.html?order-id=${result.orderId}`;
+        };} else{
+            alert("Veuillez placer un produit dans votre panier")
     };
 });

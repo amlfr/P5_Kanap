@@ -56,14 +56,13 @@ fillPage();
 
 cartBtn.addEventListener("click", () => {
   /*Checking if the quantity selected is positive and if the color is chosen*/
-  if (quantityElt.value > 0 && colorDropDown.value != "") {
+  if (1< quantityElt.value && quantityElt.value <101 && colorDropDown.value != "") {
     /*First case when the cart doesn't exist */
     if (localStorage.getItem("cart") === null) {
       localStorage.setItem("cart", JSON.stringify([[productId, colorDropDown.value, quantityElt.value]]));
     } else {
       const currentCart = JSON.parse(localStorage.getItem("cart"));
       const currentProduct = currentCart.find(product => product[0] === productId && product[1] === colorDropDown.value);
-      console.log('currentProduct ', currentProduct);
       /*Second case when the cart exists but the product isn't already in it */
       if (currentProduct === undefined) {
         currentCart.push([productId, colorDropDown.value, quantityElt.value]);
@@ -74,5 +73,8 @@ cartBtn.addEventListener("click", () => {
         localStorage.setItem("cart", JSON.stringify(currentCart));
       };
     };
-  };
+    alert("Le produit choisi a bien été ajouté à votre panier.")
+  } else {
+    alert("Veuillez sélectionner une couleur et renseigner une quantité comprise entre 1 et 100.")
+  }
 });
